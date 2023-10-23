@@ -350,12 +350,13 @@ def get_config(ini_file):
     return out_dict
 
 
-def split_config(config_file):
+def split_config(config_file, nbp_basic):
     """
     This function will be used to split the config file into one config file for each tile when in parallel mode.
 
     Args:
-        config_file: Path to global config file given.
+        config_file:
+        nb: initialized notebook
     Returns:
         config_file_path: (n_tiles) path to each config file.
     """
@@ -363,7 +364,7 @@ def split_config(config_file):
     # We will create the various config files for each tile. It is easier to read info from the config dict than the
     # ini file so use this where necessary
     config_dict = get_config(config_file)
-    use_tiles = config_dict['basic_info']['use_tiles']
+    use_tiles = nbp_basic.use_tiles
 
     # Create the output directory for the parallel run
     par_dir = os.path.join(config_dict['file_names']['output_dir'], 'par')

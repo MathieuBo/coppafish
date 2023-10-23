@@ -41,7 +41,7 @@ def run_pipeline(config_file: str, overwrite_ref_spots: bool = False, parallel: 
         run_reference_spots(nb, overwrite_ref_spots)
         run_omp(nb)
     else:
-        config_files = setup.split_config(config_file)
+        config_files = setup.split_config(config_file, nb.basic_info)
         nb_list = [initialize_nb(f) for f in config_files]
         Parallel(n_jobs=n_jobs)(delayed(run_extract)(n) for n in nb_list)
         nb = setup.merge_notebooks(nb_list, master_nb=nb)
